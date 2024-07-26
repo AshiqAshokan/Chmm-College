@@ -6,7 +6,7 @@ let callNamespace;
 const initSocket = (server) => {
   io = socketio(server, {
     cors: {
-      origin: 'https://chmm-college-frontend.onrender.com',  // Replace with your frontend URL
+      origin: 'http://localhost:3000',  // Replace with your frontend URL
       methods: ['GET', 'POST'],
       credentials: true
     }
