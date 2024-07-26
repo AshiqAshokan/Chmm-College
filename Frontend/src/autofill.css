@@ -1,0 +1,22 @@
+/* Remove black background from all input fields */
+input,
+textarea,
+select {
+    background-color: white;
+    color: #333; /* Set background color to transparent */
+}
+
+/* Autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px white inset; /* Ensures the autofill background is white */
+    -webkit-text-fill-color: #333; /* Adjust text color to ensure readability */
+    transition: background-color 5000s ease-in-out 0s; /* Smooth transition */
+}
