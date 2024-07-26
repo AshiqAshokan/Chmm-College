@@ -6,7 +6,7 @@ import avatar from "../../../assets/avatar.jpg";
 import { format } from 'date-fns';
 import { useFetchMessagesQuery } from '../../../Slices/userApiSlice';
 
-const socket = io('http://localhost:7000/chat'); // Ensure this matches your server URL and port
+const socket = io('https://chmm-college.onrender.com/chat'); // Ensure this matches your server URL and port
 
 const ParentMsgs = ({ receiverId, course }) => {
     const { userInfo } = useSelector((state) => state.auth);

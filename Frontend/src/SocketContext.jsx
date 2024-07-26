@@ -8,7 +8,7 @@ const SocketProvider = ({ children }) => {
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    const socket = io("http://localhost:7000/call");
+    const socket = io("https://chmm-college.onrender.com/call");
     setSocket(socket);
 
     socket.on("connect", () => {
