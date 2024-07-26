@@ -11,7 +11,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'https://chmm-college.onrender.com',
+        target: 'http://localhost:7000',
         changeOrigin: true,
       }
     } 
