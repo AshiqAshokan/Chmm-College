@@ -110,7 +110,9 @@ const getStudentProfile = (req, res) => {
 // Update Student Profile
 const updateStudentProfile = asyncHandler(async (req, res) => {
   console.log("Reached in update profile")
-  const student = await Student.findById(req.userId); // Access student ID from req.userId
+  const studentId = req.userId;
+  console.log("student:",studentId)
+  const student = await Student.findById(studentId); // Access student ID from req.userId
 
   if (student) {
     student.name = req.body.name || student.name;
