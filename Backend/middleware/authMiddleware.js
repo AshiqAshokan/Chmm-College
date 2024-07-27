@@ -14,6 +14,7 @@ const protect = asyncHandler(async (req, res, next) => {
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      console.log('Decoded Token:', decoded);
       let user;
       let userType;
 
@@ -32,6 +33,7 @@ const protect = asyncHandler(async (req, res, next) => {
       }
 
       if (!user) {
+        console.log('User not found');
         throw new Error('User not found');
       }
 
@@ -40,11 +42,12 @@ const protect = asyncHandler(async (req, res, next) => {
       req.userId = decoded.userId; // Include user ID in the request object
       next();
     } catch (error) {
-      console.error(error);
+      console.error('Token Error:',error);
       res.status(401);
       throw new Error('Not authorized, token failed');
     }
   } else {
+    console.log('No token provided');
     res.status(401);
     throw new Error('Not authorized, no token');
   }
