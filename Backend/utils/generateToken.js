@@ -10,9 +10,9 @@ const generateToken = (res, userId, userType) => {
 
     res.cookie('jwt', token, {
       httpOnly: true,
-      secure: true, // Ensure this is true for sameSite: 'none'
-      sameSite: 'none', // Correct value for cross-site cookies
-      domain: 'chmm-college.onrender.com', // Correct domain for your app
+      secure: process.env.NODE_ENV === 'production', // Secure only in production
+      sameSite: 'None', // Proper capitalization
+      domain: 'chmm-college.onrender.com', // Set the domain for your cookie
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     });
 };
