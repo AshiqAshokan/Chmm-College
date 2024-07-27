@@ -7,13 +7,13 @@ const generateToken = (res, userId, userType) => {
     });
 
     console.log('Generated token:', token);
-  
+    
     res.cookie('jwt', token, {
       httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-      domain: 'chmm-college.onrender.com',
-      maxAge: 30 * 24 * 60 * 60 * 1000,
+      secure: process.env.NODE_ENV === 'production',  // Set secure flag based on environment
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',  // SameSite policy
+      domain: process.env.NODE_ENV === 'production' ? 'chmm-college.onrender.com' : undefined,
+      maxAge: 30 * 24 * 60 * 60 * 1000,  // 30 days
     });
 };
 
