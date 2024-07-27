@@ -64,10 +64,13 @@ app.use('/api/payments', razorpayroutes);
 app.use('/api/fees', feeroutes);
 
 // Static file serving for production
+
+
+
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'Frontend/dist')));
+  app.use(express.static(path.join(__dirname, '/Frontend/dist')));
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Frontend/dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'Frontend','dist', 'index.html'));
   });
 
   // Health check endpoint
