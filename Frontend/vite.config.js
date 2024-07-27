@@ -14,7 +14,7 @@ export default defineConfig({
         target: 'https://chmm-college.onrender.com',
         changeOrigin: true,
         headers: {
-          origin: 'https://chmm-college-frontend.onrender.com',
+          origin: 'https://chmm-college-1-frontend.onrender.com',
         },
       }
     } 
