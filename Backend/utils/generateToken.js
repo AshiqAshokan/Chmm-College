@@ -11,13 +11,12 @@ const generateToken = (res, userId, userType) => {
 
   const cookieOptions = {
     httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? 'none' : 'Lax',
+    secure: true,
+    sameSite: 'None',
     maxAge: 30 * 24 * 60 * 60 * 1000,
     path: '/',
-    domain: isProduction ? 'chmm-college.onrender.com' : undefined, // Set the domain attribute
+    domain: 'chmm-college.onrender.com', // Set the domain attribute
   };
-
   res.cookie('jwt', token, cookieOptions);
   
   console.log('Cookie set:', res.getHeader('Set-Cookie'));
