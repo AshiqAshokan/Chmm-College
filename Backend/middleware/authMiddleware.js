@@ -1,3 +1,4 @@
+// authMiddleware.js
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 const User = require('../Models/userModel');
@@ -8,14 +9,11 @@ const Parent = require('../Models/parentModel');
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
-  ) {
-    try {
-      token = req.headers.authorization.split(' ')[1]; // Extract token from header
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  token = req.cookies.jwt;
 
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
       let user;
       let userType;
 
@@ -34,7 +32,6 @@ const protect = asyncHandler(async (req, res, next) => {
       }
 
       if (!user) {
-        console.log('User not found');
         throw new Error('User not found');
       }
 
@@ -43,12 +40,11 @@ const protect = asyncHandler(async (req, res, next) => {
       req.userId = decoded.userId; // Include user ID in the request object
       next();
     } catch (error) {
-      console.error('Token Error:', error);
+      console.error(error);
       res.status(401);
       throw new Error('Not authorized, token failed');
     }
   } else {
-    console.log('No token provided');
     res.status(401);
     throw new Error('Not authorized, no token');
   }

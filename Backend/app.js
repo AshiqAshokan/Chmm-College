@@ -1,11 +1,12 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const dotenv = require('dotenv');
-const connectDB = require('./Config/db');
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cors = require('cors');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+var dotenv = require('dotenv');
+var connectDB = require('./Config/db');
+var { initializeCounter } = require('./utils/initializeCounter');  // Adjust the path as needed
 
 dotenv.config();
 
@@ -15,25 +16,25 @@ console.log('PORT:', process.env.PORT);
 
 connectDB();
 
-const userRoutes = require('./routes/userRoutes');
-const studentRoutes = require('./routes/studentRoutes');
-const teacherRoutes = require('./routes/teacherRoutes');
-const parentRoutes = require('./routes/parentRoutes');
-const attendanceRoutes = require('./routes/attendanceRoutes');
-const notesroutes = require('./routes/notesRoutes');
-const videoroutes = require('./routes/teacherVideoRoutes');
-const questionroutes = require('./routes/questionRoutes');
-const answerroutes = require('./routes/answerRoutes');
-const markroutes = require('./routes/markRoutes');
-const messageroutes = require('./routes/TeacherStudentMsgRoutes');
-const razorpayroutes = require('./routes/razorpayRoutes');
-const feeroutes = require('./routes/feeRoutes');
+var userRoutes = require('./routes/userRoutes');
+var studentRoutes = require('./routes/studentRoutes');
+var teacherRoutes = require('./routes/teacherRoutes');
+var parentRoutes = require('./routes/parentRoutes');
+var attendanceRoutes = require('./routes/attendanceRoutes');
+var notesroutes = require('./routes/notesRoutes');
+var videoroutes = require('./routes/teacherVideoRoutes');
+var questionroutes = require('./routes/questionRoutes');
+var answerroutes = require('./routes/answerRoutes');
+var markroutes = require('./routes/markRoutes');
+var messageroutes = require('./routes/TeacherStudentMsgRoutes');
+var razorpayroutes=require('./routes/razorpayRoutes')
+var feeroutes=require('./routes/feeRoutes')
 
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
-const app = express();
+var app = express();
 
-// View engine setup
+// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -48,7 +49,6 @@ app.use(cors({
 }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// API routes
 app.use('/api/users', userRoutes);
 app.use('/api/students', studentRoutes);
 app.use('/api/teachers', teacherRoutes);
@@ -61,37 +61,18 @@ app.use('/api/answer', answerroutes);
 app.use('/api/mark', markroutes);
 app.use('/api/messages', messageroutes);
 app.use('/api/payments', razorpayroutes);
-app.use('/api/fees', feeroutes);
-
-// Static file serving for production
+app.use('/api/fees', feeroutes)
 
 
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/Frontend/dist')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Frontend','dist', 'index.html'));
-  });
-
-  // Health check endpoint
-  app.get('/health', (req, res) => {
-    res.json({ status: 'ok' });
-  });
-} else {
-  // Development route
-  app.get('/', (req, res) => res.send("Server is ready"));
-}
-
-// Error handling
 app.use(notFound);
 app.use(errorHandler);
 
-// Catch 404 and forward to error handler
+// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// Error handler
+// error handler
 app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -99,5 +80,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// Initialize the counter when the app starts
+initializeCounter().then(() => {
+  console.log('Counter initialized');
+}).catch(error => {
+  console.error('Failed to initialize counter:', error);
+});
 
 module.exports = app;
