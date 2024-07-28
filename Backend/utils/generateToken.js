@@ -14,6 +14,7 @@ const generateToken = (res, userId, userType) => {
       sameSite: 'strict', // Prevent CSRF attacks
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     });
+    console.log('Cookie set:', res.getHeader('Set-Cookie'));
 };
 
 module.exports = generateToken;
