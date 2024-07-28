@@ -10,6 +10,7 @@ const protect = asyncHandler(async (req, res, next) => {
   let token;
 
   token = req.cookies.jwt;
+  console.log("token generated from auth",token)
 
   if (token) {
     try {
