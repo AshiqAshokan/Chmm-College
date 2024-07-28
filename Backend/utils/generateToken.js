@@ -12,7 +12,7 @@ const generateToken = (res, userId, userType) => {
   const cookieOptions = {
     httpOnly: true,
     secure: isProduction,
-    sameSite: isProduction ? 'None' : 'Lax',
+    sameSite: isProduction ? 'none' : 'Lax',
     maxAge: 30 * 24 * 60 * 60 * 1000,
     path: '/',
     domain: isProduction ? 'chmm-college.onrender.com' : undefined, // Set the domain attribute
