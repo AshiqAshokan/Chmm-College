@@ -7,6 +7,7 @@ const Teacher = require('../Models/teacherModel');
 const Parent = require('../Models/parentModel');
 
 const protect = asyncHandler(async (req, res, next) => {
+  console.log('Cookies:', req.cookies); 
   let token;
 
   token = req.cookies.jwt;
