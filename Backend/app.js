@@ -2,7 +2,7 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
+const Cookies = require('cookies'); // Include cookies module
 const logger = require('morgan');
 const dotenv = require('dotenv');
 const connectDB = require('./Config/db');
@@ -37,8 +37,10 @@ const app = express();
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+  req.cookies = new Cookies(req, res);
+  next();
+});
 
 const corsOptions = {
   origin: 'https://chmm-college-1-frontend.onrender.com', // Your frontend URL
