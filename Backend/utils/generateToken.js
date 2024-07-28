@@ -16,7 +16,7 @@ const generateToken = (res, userId, userType) => {
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       path: '/',
     });
-    console.log('Cookie set:', req.cookies.jwt);
+    console.log(res.getHeaders());
 
 };
 
