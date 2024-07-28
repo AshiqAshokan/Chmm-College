@@ -48,6 +48,7 @@ app.use(
     secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
     sameSite: 'none',
+    domain: '.onrender.com',
     path: '/'
   })
 );
