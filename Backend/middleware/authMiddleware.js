@@ -9,7 +9,7 @@ const Parent = require('../Models/parentModel');
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
-  token = req.cookies.jwt;
+ token = req.cookies.token;
   console.log('Token from cookies:', token);
 
   if (token) {
