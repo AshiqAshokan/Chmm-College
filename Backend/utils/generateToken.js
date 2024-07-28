@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const Cookies = require('cookies');
 
 /**
  * Generates a JWT token and sets it as a cookie
@@ -15,8 +14,7 @@ const generateToken = (req, res, userId, userType) => {
 
   console.log('Generated token:', token);
 
-  const cookies = new Cookies(req, res);
-  cookies.set('jwt', token, {
+  res.cookie('jwt', token, {
     httpOnly: true,
     secure: true, // Use secure cookies
     sameSite: 'none', // Set sameSite to 'none'
@@ -25,8 +23,7 @@ const generateToken = (req, res, userId, userType) => {
     domain: 'chmm-college.onrender.com', // Set the domain attribute if needed
   });
 
-  // Use cookies.get() to retrieve the cookie value
-  console.log('Cookie set:', cookies.get('jwt', { signed: true }));
+  console.log('Cookie set');
 };
 
 module.exports = generateToken;
