@@ -9,7 +9,7 @@ const generateToken = (res, userId, userType) => {
     const cookieOptions = {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-      SameSite: 'none', // Prevent CSRF attacks
+      SameSite: 'None', // Prevent CSRF attacks
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       path:'/'
     };
