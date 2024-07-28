@@ -7,9 +7,12 @@ const generateToken = (req, userId, userType) => {
 
     console.log('Generated token:', token);
 
-    req.session.jwt = token; // Set the token in the session cookie
-
-    console.log('Session cookie set:', req.session.jwt);
+    if (req.session) {
+      req.session.jwt = token; // Set the token in the session cookie
+      console.log('Session cookie set:', req.session.jwt);
+    } else {
+      console.log('Session not found');
+    }
 };
 
 module.exports = generateToken;
