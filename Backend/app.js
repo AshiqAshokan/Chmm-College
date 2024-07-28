@@ -2,7 +2,7 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
 const logger = require('morgan');
 const dotenv = require('dotenv');
 const connectDB = require('./Config/db');
@@ -40,7 +40,18 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(
+  cookieSession({
+    name: "__session",
+    keys: ["key1"],
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    secure: true,
+    httpOnly: true,
+    sameSite: 'none',
+    domain: '.onrender.com',
+    path: '/'
+  })
+);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
   origin: 'https://chmm-college-1-frontend.onrender.com',  // Replace with your frontend URL
