@@ -8,19 +8,13 @@ const generateToken = (res, userId, userType) => {
 
     console.log('Generated token:', token);
   
-    const isProduction = process.env.NODE_ENV === 'production';
-    const sameSite = isProduction ? 'None' : 'Lax';
-    const secure = sameSite === 'None' ? true : isProduction;
-
     res.cookie('jwt', token, {
       httpOnly: true,
-      secure,
-      sameSite,
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-      path: '/',
+      secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+      sameSite: 'strict', // Prevent CSRF attacks
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     });
-    
-    console.log('Cookie set:', res.getHeader('Set-Cookie'));
+      console.log('Cookie set:', res.getHeader('Set-Cookie'));
 };
 
 module.exports = generateToken;
