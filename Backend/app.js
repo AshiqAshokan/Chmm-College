@@ -40,18 +40,20 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(
-  cookieSession({
-    name: "__session",
-    keys: ["key1"],
-    maxAge: 24 * 60 * 60 * 1000, // 24 hours
-    secure: process.env.NODE_ENV === 'production',
-    httpOnly: true,
-    sameSite: 'none',
-    domain: '.onrender.com',
-    path: '/'
-  })
-);
+
+  app.use(
+    cookieSession({
+      name: "__session",
+      keys: ["key1"],
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: true,
+      sameSite: 'lax',
+      domain: '.onrender.com',
+      path: '/'
+    })
+  )
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
   origin: 'https://chmm-college-1-frontend.onrender.com',  // Replace with your frontend URL
