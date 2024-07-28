@@ -8,10 +8,14 @@ const generateToken = (res, userId, userType) => {
 
     console.log('Generated token:', token);
   
+    const isProduction = process.env.NODE_ENV === 'production';
+    const sameSite = isProduction ? 'None' : 'Lax';
+    const secure = sameSite === 'None' ? true : isProduction;
+
     res.cookie('jwt', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // Use 'None' for cross-site requests
+      secure,
+      sameSite,
       maxAge: 30 * 24 * 60 * 60 * 1000,
       path: '/',
     });
