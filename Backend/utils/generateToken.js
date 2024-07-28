@@ -1,3 +1,6 @@
+// generateToken.js
+const jwt = require('jsonwebtoken');
+
 const generateToken = (res, userId, userType) => {
   const token = jwt.sign({ userId, userType }, process.env.JWT_SECRET, {
     expiresIn: '30d',
@@ -11,8 +14,7 @@ const generateToken = (res, userId, userType) => {
     sameSite: 'strict',
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
   });
-
-  console.log('Cookie set:', res.getHeader('Set-Cookie')); // Add this line
+  console.log('Cookie set:', res.getHeader('Set-Cookie'));
 };
 
 module.exports = generateToken;
