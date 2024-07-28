@@ -7,12 +7,10 @@ const Teacher = require('../Models/teacherModel');
 const Parent = require('../Models/parentModel');
 
 const protect = asyncHandler(async (req, res, next) => {
-  console.log('Request Headers:', req.headers);
-  console.log('Request Session:', req.session);
   let token;
 
-  token = req.session.jwt; // Retrieve the token from the session cookie
-  console.log("Token from session:", token);
+  token = req.cookies.jwt;
+  console.log("token is ",token)
 
   if (token) {
     try {
