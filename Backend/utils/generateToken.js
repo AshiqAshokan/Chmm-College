@@ -10,11 +10,12 @@ const generateToken = (res, userId, userType) => {
   
     res.cookie('jwt', token, {
       httpOnly: true,
-      secure: true, // Set secure to true
-      sameSite: 'None', // Set sameSite to None
+      secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // Use 'None' for cross-site requests
       maxAge: 30 * 24 * 60 * 60 * 1000,
       path: '/',
     });
+    
     console.log('Cookie set:', res.getHeader('Set-Cookie'));
 };
 
