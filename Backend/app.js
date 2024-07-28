@@ -40,29 +40,23 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-  app.use(
-    cookieSession({
-      name: "__session",
-      keys: ["key1"],
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
-      secure: process.env.NODE_ENV === 'production',
-      httpOnly: true,
-      sameSite: 'lax',
-      domain: '.onrender.com',
-      path: '/'
-    })
-  )
-
+app.use(
+  cookieSession({
+    name: "__session",
+    keys: ["key1"],
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    secure: process.env.NODE_ENV === 'production',
+    httpOnly: true,
+    sameSite: 'none',
+    domain: '.onrender.com',
+    path: '/'
+  })
+);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
   origin: 'https://chmm-college-1-frontend.onrender.com',  // Replace with your frontend URL
   credentials: true,  // If you are using cookies or sessions
 }));
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Credentials', true);
-  next();
-});
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // API routes
