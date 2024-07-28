@@ -59,6 +59,10 @@ app.use(cors({
   origin: 'https://chmm-college-1-frontend.onrender.com',  // Replace with your frontend URL
   credentials: true,  // If you are using cookies or sessions
 }));
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Credentials', true);
+  next();
+});
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // API routes
