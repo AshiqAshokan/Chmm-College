@@ -25,6 +25,7 @@ const authStudent = asyncHandler(async (req, res) => {
           email: student.email,
           userType: student.userType,
           course:student.course,
+          token,
           
 
         });
