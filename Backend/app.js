@@ -20,37 +20,33 @@ const studentRoutes = require('./routes/studentRoutes');
 const teacherRoutes = require('./routes/teacherRoutes');
 const parentRoutes = require('./routes/parentRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
-const notesRoutes = require('./routes/notesRoutes');
-const videoRoutes = require('./routes/teacherVideoRoutes');
-const questionRoutes = require('./routes/questionRoutes');
-const answerRoutes = require('./routes/answerRoutes');
-const markRoutes = require('./routes/markRoutes');
-const messageRoutes = require('./routes/TeacherStudentMsgRoutes');
-const razorpayRoutes = require('./routes/razorpayRoutes');
-const feeRoutes = require('./routes/feeRoutes');
+const notesroutes = require('./routes/notesRoutes');
+const videoroutes = require('./routes/teacherVideoRoutes');
+const questionroutes = require('./routes/questionRoutes');
+const answerroutes = require('./routes/answerRoutes');
+const markroutes = require('./routes/markRoutes');
+const messageroutes = require('./routes/TeacherStudentMsgRoutes');
+const razorpayroutes = require('./routes/razorpayRoutes');
+const feeroutes = require('./routes/feeRoutes');
 
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 const app = express();
 
-// Middleware
+// View engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-const corsOptions = {
-  origin: 'https://chmm-college-1-frontend.onrender.com', // Your frontend URL
-  credentials: true,  // Allows cookies and sessions
-};
-app.use(cors(corsOptions));
-
+app.use(cors({
+  origin: 'https://chmm-college-1-frontend.onrender.com',  // Replace with your frontend URL
+  credentials: true,  // If you are using cookies or sessions
+}));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-// View engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 // API routes
 app.use('/api/users', userRoutes);
@@ -58,20 +54,23 @@ app.use('/api/students', studentRoutes);
 app.use('/api/teachers', teacherRoutes);
 app.use('/api/parents', parentRoutes);
 app.use('/api/markAttendance', attendanceRoutes);
-app.use('/api/notes', notesRoutes);
-app.use('/api/videos', videoRoutes);
-app.use('/api/question', questionRoutes);
-app.use('/api/answer', answerRoutes);
-app.use('/api/mark', markRoutes);
-app.use('/api/messages', messageRoutes);
-app.use('/api/payments', razorpayRoutes);
-app.use('/api/fees', feeRoutes);
+app.use('/api/notes', notesroutes);
+app.use('/api/videos', videoroutes);
+app.use('/api/question', questionroutes);
+app.use('/api/answer', answerroutes);
+app.use('/api/mark', markroutes);
+app.use('/api/messages', messageroutes);
+app.use('/api/payments', razorpayroutes);
+app.use('/api/fees', feeroutes);
 
 // Static file serving for production
+
+
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/Frontend/dist')));
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Frontend', 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'Frontend','dist', 'index.html'));
   });
 
   // Health check endpoint
@@ -88,16 +87,17 @@ app.use(notFound);
 app.use(errorHandler);
 
 // Catch 404 and forward to error handler
-app.use((req, res, next) => {
+app.use(function(req, res, next) {
   next(createError(404));
 });
 
 // Error handler
-app.use((err, req, res, next) => {
+app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
