@@ -33,32 +33,20 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 const app = express();
 
-// Middleware
+// View engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
 app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
   origin: 'https://chmm-college-1-frontend.onrender.com',  // Replace with your frontend URL
   credentials: true,  // If you are using cookies or sessions
 }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Static file serving for production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/Frontend/dist')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Frontend', 'dist', 'index.html'));
-  });
-
-  // Health check endpoint
-  app.get('/health', (req, res) => {
-    res.json({ status: 'ok' });
-  });
-} else {
-  // Development route
-  app.get('/', (req, res) => res.send("Server is ready"));
-}
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // API routes
 app.use('/api/users', userRoutes);
@@ -75,21 +63,41 @@ app.use('/api/messages', messageroutes);
 app.use('/api/payments', razorpayroutes);
 app.use('/api/fees', feeroutes);
 
+// Static file serving for production
+
+
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/Frontend/dist')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Frontend','dist', 'index.html'));
+  });
+
+  // Health check endpoint
+  app.get('/health', (req, res) => {
+    res.json({ status: 'ok' });
+  });
+} else {
+  // Development route
+  app.get('/', (req, res) => res.send("Server is ready"));
+}
+
 // Error handling
 app.use(notFound);
 app.use(errorHandler);
 
 // Catch 404 and forward to error handler
-app.use((req, res, next) => {
+app.use(function(req, res, next) {
   next(createError(404));
 });
 
 // Error handler
-app.use((err, req, res, next) => {
+app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
