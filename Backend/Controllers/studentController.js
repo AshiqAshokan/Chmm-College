@@ -63,12 +63,13 @@ const registerStudent = asyncHandler(async (req, res) => {
     userType: 'student'
   });
   
-  generateToken(res, student._id, 'student');
+  const token = generateToken(res, student._id, 'student');
 
   res.status(201).json({
     _id: student._id,
     name: student.name,
     email: student.email,
+    token,
   });
 });
 
