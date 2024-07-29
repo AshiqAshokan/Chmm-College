@@ -62,12 +62,13 @@ const registerParent = asyncHandler(async (req, res) => {
     userType: 'Parent'
   });
 
-  generateToken(res, parent._id, 'parent');
+  const token = generateToken(res, parent._id, 'parent');
 
   res.status(201).json({
     _id: parent._id,
     name: parent.name,
     email: parent.email,
+    token,
   });
 });
 

@@ -57,16 +57,17 @@ const registerTeacher = asyncHandler(async (req, res) => {
     userType: 'Teacher'
   });
   
-  generateToken(res, teacher._id, 'Teacher');
+  const token= generateToken(res, teacher._id, 'Teacher');
 
   res.status(201).json({
     _id: teacher._id,
     name: teacher.name,
     email: teacher.email,
+    token,
   });
 });
 
-// Student Logout
+
 const logoutTeacher = asyncHandler(async (req, res) => {
   res.status(200).json({ message: 'Logged out successfully' });
 });
