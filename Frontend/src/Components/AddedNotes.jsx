@@ -33,10 +33,17 @@ const AddedNotes = () => {
 
   const handleDownload = async (fileUrl) => {
     try {
-      const response = await fetch(`https://chmm-college.onrender.com/${fileUrl}`, {
+      // Adjust the file URL path
+      const fileName = fileUrl.split('\\').pop();
+      const adjustedFilePath = fileUrl.replace(/\\/g, '/');
+      const url = `https://chmm-college.onrender.com/${adjustedFilePath}`;
+      
+      console.log("Downloading from URL:", url); // Log the URL for debugging
+  
+      const response = await fetch(url, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/pdf',  // Adjust content type as needed
+          'Content-Type': 'application/pdf', // Ensure this is the correct content type
         },
       });
   
@@ -45,11 +52,11 @@ const AddedNotes = () => {
       }
   
       const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
+      const downloadUrl = URL.createObjectURL(blob);
   
       const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', 'file.pdf'); // Set the filename for download
+      link.href = downloadUrl;
+      link.setAttribute('download', fileName); // Set the filename for download
   
       document.body.appendChild(link);
       link.click();
@@ -61,6 +68,7 @@ const AddedNotes = () => {
       toast.error('Error downloading file');
     }
   };
+  
   
   
 
