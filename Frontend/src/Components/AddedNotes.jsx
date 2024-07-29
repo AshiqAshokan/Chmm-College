@@ -32,6 +32,7 @@ const AddedNotes = () => {
   }, [fetchedNotes, userInfo]);
 
   const handleDownload = async (fileUrl) => {
+    console.log(fileUrl)
     try {
       // Adjust the file URL path
       const fileName = fileUrl.split('\\').pop();
