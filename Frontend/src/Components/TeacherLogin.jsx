@@ -23,7 +23,11 @@ const TeacherLogin = () => {
     e.preventDefault();
     try {
       const res = await login({ email, password }).unwrap();
-      dispatch(setCredentials({ ...res }));
+      console.log("logged user",res);
+      const { token, ...user } = res;
+      console.log("Token:", token);
+      console.log("User:", user);// Extract token and user info from response
+      dispatch(setCredentials({ user, token }));
       navigate('/Teacher'); // Navigate to the teacher's dashboard
     } catch (err) {
       const errorMessage = err.data?.message || err.error || 'Failed to login';
