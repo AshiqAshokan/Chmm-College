@@ -32,14 +32,16 @@ const AddedNotes = () => {
   }, [fetchedNotes, userInfo]);
 
   const handleDownload = async (fileUrl) => {
-    console.log(fileUrl)
     try {
+      console.log("Received file URL:", fileUrl);
+  
       // Adjust the file URL path
       const fileName = fileUrl.split('\\').pop();
       const adjustedFilePath = fileUrl.replace(/\\/g, '/');
       const url = `https://chmm-college.onrender.com/${adjustedFilePath}`;
-      
-      console.log("Downloading from URL:", url); // Log the URL for debugging
+  
+      console.log("Adjusted file path:", adjustedFilePath);
+      console.log("Downloading from URL:", url);
   
       const response = await fetch(url, {
         method: 'GET',
