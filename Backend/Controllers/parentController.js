@@ -13,7 +13,7 @@ const authParent = asyncHandler(async (req, res) => {
   const parent = await Parent.findOne({ email });
 
   if (parent && (await parent.matchPassword(password))) {
-    generateToken(res, parent._id, parent.userType);
+    const token = generateToken(res, parent._id, parent.userType);
 
     res.json({
       _id: parent._id,
@@ -22,6 +22,7 @@ const authParent = asyncHandler(async (req, res) => {
       studentId:parent.studentId,
       userType: parent.userType,
       course:parent.course,
+      token,
     });
   } else {
     res.status(401);
@@ -72,11 +73,6 @@ const registerParent = asyncHandler(async (req, res) => {
 
 // Parent Logout
 const logoutParent = asyncHandler(async (req, res) => {
-  res.cookie('jwt', '', {
-    httpOnly: true,
-    expires: new Date(0),
-  });
-
   res.status(200).json({ message: 'Logged out successfully' });
 });
 

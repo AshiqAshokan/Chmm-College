@@ -12,13 +12,14 @@ const authUser = asyncHandler(async (req, res) => {
   
     if (user && (await user.matchPassword(password))) {
       if (user.userType === 'User') {
-        generateToken(res, user._id, user.userType);
+       const token = generateToken(res, user._id, user.userType);
   
         res.json({
           _id: user._id,
           name: user.name,
           email: user.email,
           userType: user.userType,
+          token,
         });
       } else {
         res.status(401);
