@@ -38,7 +38,11 @@ const TeacherRegistration = () => {
         subject, // Include the subject field
         password,
       }).unwrap();
-      dispatch(setCredentials({ ...res }));
+      console.log("logged user",res);
+      const { token, ...user } = res;
+      console.log("Token:", token);
+      console.log("User:", user);// Extract token and user info from response
+      dispatch(setCredentials({ user, token }));
       toast.success('Registration successful!');
       navigate('/');
     } catch (err) {
