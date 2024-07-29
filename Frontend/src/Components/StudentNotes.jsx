@@ -33,13 +33,15 @@ const StudentNotes = () => {
   }
   const handleDownload = async (fileUrl) => {
     try {
-      // Normalize the file path
+      console.log("Received file URL:", fileUrl);
+  
+      // Adjust the file URL path
       const fileName = fileUrl.split('\\').pop();
       const adjustedFilePath = fileUrl.replace(/\\/g, '/');
       const url = `https://chmm-college.onrender.com/${adjustedFilePath}`;
-    
-      // Ensure special characters in filename are encoded
-      const encodedFileName = encodeURIComponent(fileName);
+  
+      console.log("Adjusted file path:", adjustedFilePath);
+      console.log("Downloading from URL:", url);
   
       const response = await fetch(url, {
         method: 'GET',
@@ -57,7 +59,7 @@ const StudentNotes = () => {
   
       const link = document.createElement('a');
       link.href = downloadUrl;
-      link.setAttribute('download', encodedFileName); // Set the filename for download
+      link.setAttribute('download', fileName); // Set the filename for download
   
       document.body.appendChild(link);
       link.click();
@@ -69,6 +71,7 @@ const StudentNotes = () => {
       toast.error('Error downloading file');
     }
   };
+  
   
   
   return (
