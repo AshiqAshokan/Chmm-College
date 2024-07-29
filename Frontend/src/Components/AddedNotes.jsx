@@ -33,7 +33,7 @@ const AddedNotes = () => {
 
   const handleDownload = async (fileUrl) => {
     try {
-      const response = await fetch(`http://localhost:7000/${fileUrl}`, {
+      const response = await fetch(`https://chmm-college.onrender.com/${fileUrl}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/pdf',  // Adjust content type as needed
