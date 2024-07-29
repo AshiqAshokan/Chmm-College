@@ -9,8 +9,9 @@ const Parent = require('../Models/parentModel');
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
-  token = req.cookies.jwt;
-  console.log("token generated from auth",token)
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+      token = req.headers.authorization.split(' ')[1];
+  }
 
   if (token) {
     try {

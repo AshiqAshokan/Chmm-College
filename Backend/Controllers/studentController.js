@@ -17,7 +17,7 @@ const authStudent = asyncHandler(async (req, res) => {
   
     if (student && (await student.matchPassword(password))) {
       if (student.userType === 'student') { // Check userType
-        generateToken(res, student._id, student.userType);
+        const token=generateToken(res, student._id, student.userType);
   
         res.json({
           _id: student._id,
@@ -25,6 +25,7 @@ const authStudent = asyncHandler(async (req, res) => {
           email: student.email,
           userType: student.userType,
           course:student.course,
+          token,
           
 
         });
@@ -73,11 +74,6 @@ const registerStudent = asyncHandler(async (req, res) => {
 
 // Student Logout
 const logoutStudent = asyncHandler(async (req, res) => {
-  res.cookie('jwt', '', {
-    httpOnly: true,
-    expires: new Date(0),
-  });
-  
   res.status(200).json({ message: 'Logged out successfully' });
 });
 

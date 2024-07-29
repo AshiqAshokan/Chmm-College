@@ -6,20 +6,7 @@ const generateToken = (res, userId, userType) => {
       expiresIn: '30d',
     });
   
-    const cookieOptions = {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-      SameSite: 'none', // Prevent CSRF attacks
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-      path:'/'
-    };
-  
-    console.log('Cookie:', {
-      jwt: token,
-      options: cookieOptions
-    });
-  
-    res.cookie('jwt', token, cookieOptions);
+   return token
 };
 
 module.exports = generateToken;
