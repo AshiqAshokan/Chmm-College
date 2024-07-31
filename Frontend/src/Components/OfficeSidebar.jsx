@@ -70,7 +70,7 @@ const OfficeSidebar = () => {
     // { name: "Mark List", link: "/", icon: FaListAlt, margin: true },
     { name: "Students List", link: "/Admin/student-list", icon: FaListAlt },
     { name: "Teachers List", link: "/Admin/teacher-list", icon: FaListAlt },
-    { name: "Leave", link: "/Admin/teacher-list", icon: FaListAlt },
+    { name: "Comments", link: "/Admin/comments", icon: FaListAlt },
     {
       name: "Logout",
       icon: LuLogOut,
