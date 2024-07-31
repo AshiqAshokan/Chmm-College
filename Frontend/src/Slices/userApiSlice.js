@@ -510,7 +510,7 @@ fetchTeacherSalary:builder.query({
 
 createMessage: builder.mutation({
   query: (data) => ({
-    url: `${COMMENTS_URL}/messages`,
+    url: `${COMMENTS_URL}/comments`,
     method: 'POST',
     body: data,
   }),
