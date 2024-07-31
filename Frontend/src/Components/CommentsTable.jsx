@@ -1,9 +1,15 @@
 // src/components/CommentsTable.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import {  useGetCommentsQuery } from '../Slices/userApiSlice';
 
 const CommentsTable = () => {
   const { data: commentsData, error, isLoading } =  useGetCommentsQuery();
+  
+  useEffect(() => {
+    if (commentsData) {
+      console.log('Comments Data:', commentsData);
+    }
+  }, [commentsData]);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading comments data</p>;
