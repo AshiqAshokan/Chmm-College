@@ -523,6 +523,13 @@ getParentPaidFees: builder.query({
   }),
 }),
 
+getComments:builder.query({
+  query: () => ({
+    url: `${COMMENTS_URL}/getcomments`,
+    method: 'GET',
+  }),
+}),
+
 
     
   }),
@@ -596,6 +603,7 @@ export const {
    useFetchTeacherSalaryQuery,
    useCreateMessageMutation,
    useGetParentPaidFeesQuery,
+   useGetCommentsQuery,
   
   
 

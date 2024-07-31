@@ -9,7 +9,7 @@ const ParentspaidedFees = () => {
   if (error) return <p>Error loading fees data</p>;
 
   return (
-    <div>
+    <div className='p-3'>
       <h1 className='m-3 text-xl text-white font-semibold'>Students Paid Fees</h1>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
