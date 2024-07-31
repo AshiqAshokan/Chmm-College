@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Contactpic from '../assets/contact.png';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
  import { useCreateMessageMutation } from '../Slices/userApiSlice';
 
 const container = (delay) => ({
@@ -19,12 +20,15 @@ const Contact = () => {
   const [message, setMessage] = useState('');
   const [sendMessage] = useCreateMessageMutation();
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await sendMessage({ name, email, message }).unwrap();
       console.log('Message sent successfully!');
       toast.success('Message sent successfully!');
+      navigate('/');
     } catch (error) {
       console.error('Error sending message:', error);
       toast.error('Error sending message. Please try again.');
