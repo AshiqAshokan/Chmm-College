@@ -68,6 +68,7 @@ import FeesTable from './Components/FeesTable';
 import ParentFees from './Components/ParentFees';
 import PaidFeesDetails from './Components/PaidFeesDetails';
 import TeacherSalaryTable from './Components/TeacherSalaryTable';
+import ParentspaidedFees from './Components/ParentspaidedFees';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -110,6 +111,7 @@ const App = () => {
             <Route path="salary-calculator" element={<SalaryCalculator />} />
             <Route path="salary-credited" element={<SalaryCredited />} />
             <Route path="fees-calculator" element={<FeesCalculator />} />
+            <Route path="fees-table" element={<ParentspaidedFees />} />
            
 
           </Route>

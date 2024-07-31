@@ -55,7 +55,7 @@ const OfficeSidebar = () => {
       icon: FaCreditCard,
       submenu: [
         { name: "Student Fees", link: "/Admin/fees-calculator", icon: FaCreditCard },
-        { name: "Paid Fees", link: "#", icon: FaCreditCard }
+        { name: "Paid Fees", link: "/Admin/fees-table", icon: FaCreditCard }
       ]
     },
     {
