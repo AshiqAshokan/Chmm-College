@@ -59,28 +59,32 @@ const Contact = () => {
             </h1>
             <form class="max-w-sm mx-auto md:mt-10"onSubmit={handleSubmit}>
               <div class="mb-5">
-              <label htmlFor="name">Name:</label>
+              <label htmlFor="name"className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name:</label>
           <input
             type="text"
             id="name"
+            className="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" 
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
               </div>
               <div class="mb-5">
-              <label htmlFor="email">Email:</label>
+              <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email:</label>
           <input
             type="email"
             id="email"
+            className="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" 
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
               </div>
               <div class="mb-5">
-              <label htmlFor="message">Message:</label>
+              <label htmlFor="message"className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Message:</label>
           <textarea
             id="message"
             value={message}
+            rows="4" 
+            className="block p-2.5 w-full text-sm text-black bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a comment..."
             onChange={(e) => setMessage(e.target.value)}
           />
               </div>
