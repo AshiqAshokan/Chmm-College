@@ -20,7 +20,7 @@ const ParentspaidedFees = () => {
               <th scope="col" className="px-6 py-3">Order ID</th>
               <th scope="col" className="px-6 py-3">Transaction ID</th>
               <th scope="col" className="px-6 py-3">Payment Status</th>
-              <th scope="col" className="px-6 py-3"><span className="sr-only">Edit</span></th>
+           
             </tr>
           </thead>
           <tbody>
@@ -33,9 +33,7 @@ const ParentspaidedFees = () => {
                 <td className="px-6 py-4">{fee.orderId}</td>
                 <td className="px-6 py-4">{fee.transactionId}</td>
                 <td className="px-6 py-4">{fee.paymentStatus}</td>
-                <td className="px-6 py-4 text-right">
-                  <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
+              
               </tr>
             ))}
           </tbody>
