@@ -514,8 +514,14 @@ createMessage: builder.mutation({
     method: 'POST',
     body: data,
   }),
-})
+}),
 
+getParentPaidFees: builder.query({
+  query: () => ({
+    url: `${FEES_URL}/ParentPaidFees`,
+    method: 'GET',
+  }),
+}),
 
 
     
@@ -589,6 +595,7 @@ export const {
    useFetchFeesDetailsQuery,
    useFetchTeacherSalaryQuery,
    useCreateMessageMutation,
+   useGetParentPaidFeesQuery,
   
   
 
