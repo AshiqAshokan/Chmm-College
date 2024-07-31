@@ -29,6 +29,7 @@ var markroutes = require('./routes/markRoutes');
 var messageroutes = require('./routes/TeacherStudentMsgRoutes');
 var razorpayroutes=require('./routes/razorpayRoutes')
 var feeroutes=require('./routes/feeRoutes')
+var commentRoutes=require('./routes/commentRoutes')
 
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
@@ -62,6 +63,7 @@ app.use('/api/mark', markroutes);
 app.use('/api/messages', messageroutes);
 app.use('/api/payments', razorpayroutes);
 app.use('/api/fees', feeroutes)
+app.use('/api/comments', commentRoutes)
 
 
 app.use(notFound);
