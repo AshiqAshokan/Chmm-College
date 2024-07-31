@@ -1,6 +1,8 @@
-import React from 'react';
+import { useState } from 'react';
 import Contactpic from '../assets/contact.png';
 import { motion } from 'framer-motion';
+import { toast } from 'react-toastify';
+// import { useSendMessageMutation } from './userApiSlice';
 
 const container = (delay) => ({
   hidden: { x: -100, opacity: 0 },
@@ -12,6 +14,23 @@ const container = (delay) => ({
 });
 
 const Contact = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [sendMessage] = useSendMessageMutation();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await sendMessage({ name, email, message }).unwrap();
+      console.log('Message sent successfully!');
+      toast.success('Message sent successfully!');
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast.error('Error sending message. Please try again.');
+    }
+  };
+
   return (
     <div>
       <motion.div
@@ -38,20 +57,34 @@ const Contact = () => {
               </span>
               <span className='absolute left-0 bottom-0 h-0.5 w-40 md:w-48 bg-pink-300'></span>
             </h1>
-            <form class="max-w-sm mx-auto md:mt-10">
+            <form class="max-w-sm mx-auto md:mt-10"onSubmit={handleSubmit}>
               <div class="mb-5">
-                <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                <input type="text" id="base-input" class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+              <label htmlFor="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
               </div>
               <div class="mb-5">
-                <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                <input type="text" id="base-input" class="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+              <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
               </div>
               <div class="mb-5">
-                <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
-                <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-black bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a comment..."></textarea>
+              <label htmlFor="message">Message:</label>
+          <textarea
+            id="message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
               </div>
-              <button type="button" class="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-5 md:mt-2">Submit</button>
+              <button type="submit" class="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-5 md:mt-2">Submit</button>
             </form>
           </div>
         </motion.div>
