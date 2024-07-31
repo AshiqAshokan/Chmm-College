@@ -4,7 +4,7 @@ import {  useGetCommentsQuery } from '../Slices/userApiSlice';
 
 const CommentsTable = () => {
   const { data: commentsData, error, isLoading } =  useGetCommentsQuery();
-  
+
   useEffect(() => {
     if (commentsData) {
       console.log('Comments Data:', commentsData);
@@ -33,7 +33,7 @@ const CommentsTable = () => {
                 <td className="px-6 py-4">{comment.name}</td>
                 <td className="px-6 py-4">{comment.email}</td>
                 <td className="px-6 py-4">{comment.message}</td>
-                <td className="px-6 py-4">{new Date(comment.createdAt).toLocaleDateString()}</td>
+                <td className="px-6 py-4">{new Date(comment.createdAt).toLocaleDateString('en-GB')}</td>
               </tr>
             ))}
           </tbody>
