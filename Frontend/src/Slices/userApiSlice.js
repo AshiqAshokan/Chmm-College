@@ -12,6 +12,7 @@ const Mark_URL ='/api/mark'
 const MESSAGES_URL = '/api/messages'
 const PAYMENT_URL ='/api/payments'
 const FEES_URL ='/api/fees'
+const COMMENTS_URL='/api/comments'
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -507,6 +508,14 @@ fetchTeacherSalary:builder.query({
   },
 }),
 
+createMessage: builder.mutation({
+  query: (data) => ({
+    url: `${COMMENTS_URL}/messages`,
+    method: 'POST',
+    body: data,
+  }),
+})
+
 
 
     
@@ -579,6 +588,7 @@ export const {
    useUpdatePaymentStatusMutation,
    useFetchFeesDetailsQuery,
    useFetchTeacherSalaryQuery,
+   useCreateMessageMutation,
   
   
 

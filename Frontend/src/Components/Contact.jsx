@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Contactpic from '../assets/contact.png';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
-// import { useSendMessageMutation } from './userApiSlice';
+ import { useCreateMessageMutation } from '../Slices/userApiSlice';
 
 const container = (delay) => ({
   hidden: { x: -100, opacity: 0 },
@@ -17,7 +17,7 @@ const Contact = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const [sendMessage] = useSendMessageMutation();
+  const [sendMessage] = useCreateMessageMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
