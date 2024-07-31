@@ -16,7 +16,6 @@ const ParentspaidedFees = () => {
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">Student ID</th>
-              <th scope="col" className="px-6 py-3">Student Name</th>
               <th scope="col" className="px-6 py-3">Amount</th>
               <th scope="col" className="px-6 py-3">Order ID</th>
               <th scope="col" className="px-6 py-3">Transaction ID</th>
@@ -30,7 +29,6 @@ const ParentspaidedFees = () => {
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   {fee.studentId}
                 </th>
-                <td className="px-6 py-4">{fee.studentId}</td>
                 <td className="px-6 py-4">{fee.amount}</td>
                 <td className="px-6 py-4">{fee.orderId}</td>
                 <td className="px-6 py-4">{fee.transactionId}</td>
