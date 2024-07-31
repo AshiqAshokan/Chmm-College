@@ -123,6 +123,16 @@ const paidedFees =  async (req, res) => {
   }
 }
 
+const getPaidedfees = async (req, res) => {
+  console.log("Reached paid status")
+  try {
+    const fees = await FeeTransaction.find();
+    res.json(fees);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   postFees,
   getStudentFeesRetrival,
@@ -130,5 +140,6 @@ module.exports = {
   verifyPayment,
   transfer,
   paidedFees,
+  getPaidedfees,
 
 };
